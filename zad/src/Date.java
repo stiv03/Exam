@@ -6,9 +6,6 @@ public class Date implements Serializable {
     private int year;
 
     public Date() {
-        this.day = 1;
-        this.month = 1;
-        this.year = 2000;
     }
 
     public Date(int day, int month, int year) {
