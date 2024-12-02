@@ -18,7 +18,10 @@ public class BankDepositor implements Serializable {
 
     public double calculateCapitalIncrease() {
          return depositAmount * (1 + interestRate);
+    }
 
+     public void applyInterest() {
+        this.depositAmount = calculateCapitalIncrease();
     }
 
     public String getEgn() {
