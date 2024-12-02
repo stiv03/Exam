@@ -33,7 +33,7 @@ public class BankDepositor implements Serializable {
     }
 
     private boolean isValidEgn(String egn) {
-        return egn != null && egn.length() == 10 && egn.matches("\\d{10}");
+        return egn != null && egn.matches("\\d{10}");
     }
 
     public String getDepositorName() {
