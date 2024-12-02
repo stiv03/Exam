@@ -10,15 +10,15 @@ public class BankDepositor implements Serializable {
 
 
     public BankDepositor(String egn, String depositorName, double depositAmount, Date depositDate) {
-        this.egn = egn;
+        setEgn(egn);
         this.depositorName = depositorName;
         this.depositAmount = depositAmount;
         this.depositDate = depositDate;
     }
 
     public double calculateCapitalIncrease() {
-        depositAmount = depositAmount * (1 + interestRate);
-        return depositAmount;
+         return depositAmount * (1 + interestRate);
+
     }
 
     public String getEgn() {
@@ -26,7 +26,14 @@ public class BankDepositor implements Serializable {
     }
 
     public void setEgn(String egn) {
+        if (!isValidEgn(egn)) {
+            throw new IllegalArgumentException("Invalid EGN: " + egn);
+        }
         this.egn = egn;
+    }
+
+    private boolean isValidEgn(String egn) {
+        return egn != null && egn.length() == 10 && egn.matches("\\d{10}");
     }
 
     public String getDepositorName() {
@@ -55,7 +62,7 @@ public class BankDepositor implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("EGN: %s, Name: %s, Deposit Amount: %.2f, Deposit Date: %s",
-                egn, depositorName, depositAmount, depositDate);
+        return String.format("EGN: %s, Name: %s, Deposit Amount: %.2f, After Interest %.2f, Deposit Date: %s",
+                egn, depositorName,depositAmount, calculateCapitalIncrease(), depositDate);
     }
 }
