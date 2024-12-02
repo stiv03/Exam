@@ -1,10 +1,11 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class BankDepositorManager {
 
-    private ArrayList<BankDepositor> depositors = new ArrayList<>();
+    private List<BankDepositor> depositors = new ArrayList<>();
 
     public void addDepositor(BankDepositor depositor) {
         depositors.add(depositor);
@@ -29,26 +30,20 @@ public class BankDepositorManager {
         }
     }
 
-    public void loadFromFile(String filename) {
+    public List<BankDepositor> loadFromFile(String filename) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
             depositors = (ArrayList<BankDepositor>) ois.readObject();
             System.out.println("Data successfully loaded from file: " + filename);
+            return depositors;
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + filename);
         } catch (IOException e) {
             System.err.println("Error loading data from file: " + e.getMessage());
-            e.printStackTrace();
+
         } catch (ClassNotFoundException e) {
             System.err.println("Class not found: " + e.getMessage());
-            e.printStackTrace();
         }
+        return null;
     }
-
-    public void displayDepositors() {
-        for (BankDepositor depositor : depositors) {
-            System.out.println(depositor);
-        }
-    }
-
-
+    
 }
