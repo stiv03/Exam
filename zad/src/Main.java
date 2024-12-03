@@ -1,30 +1,41 @@
-import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         BankDepositorManager manager = new BankDepositorManager();
+        Scanner scanner = new Scanner(System.in);
 
-        Date depositDate = new Date(14, 11, 2024);
+        while (true) {
 
-        BankDepositor depositor1 = new BankDepositor("1234567890", "Ivan Ivanov", 1000.00, depositDate);
-        BankDepositor depositor2 = new BankDepositor("0987654321", "Petar Petrov", 2000.00, depositDate);
-        BankDepositor depositor3 = new BankDepositor("5324524355", "Georgi Marinov", 500.00, depositDate);
+            Menu.displayMenu();
+            int choice = Menu.getUserChoice(scanner);
 
-        manager.addDepositor(depositor1);
-        manager.addDepositor(depositor2);
-        manager.addDepositor(depositor3);
+            switch (choice) {
+                case 1:
+                    Menu.addNewDepositor(manager, scanner);
+                    break;
 
-        manager.sortDepositorsByAmount();
+                case 2:
+                    Menu.editDepositor(manager, scanner);
+                    break;
 
-        depositor2.setDepositAmount(1000);
+                case 3:
+                    Menu.deleteDepositor(manager, scanner);
+                    break;
+
+                case 4:
+                    Menu.displayAllDepositors(manager);
+                    break;
 
 
-        manager.saveToFile("depositors.txt");
+                case 0:
+                    Menu.exitProgram(scanner);
+                    return;
 
-
-        List<BankDepositor> list = manager.loadFromFile("depositors.txt");
-        if (list!= null) {
-            list.forEach(System.out::println);
+                default:
+                    System.out.println("Невалидна опция. Опитайте отново.");
+                    break;
+            }
         }
     }
 }
