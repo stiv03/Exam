@@ -11,8 +11,18 @@ public class BankDepositorManager {
         depositors.add(depositor);
     }
 
-    public void removeDepositor(String egn) {
-        depositors.removeIf(depositor -> depositor.getEgn().equals(egn));
+    public boolean removeDepositor(String egn) {
+        return depositors.removeIf(depositor -> depositor.getEgn().equals(egn));
+    }
+
+    public BankDepositor getDepositorByEGN(String egn) {
+        for (BankDepositor depositor : depositors) {
+            if (depositor.getEgn().equals(egn)) {
+                return depositor;
+            }
+        }
+        return null;
+
     }
 
     public void sortDepositorsByAmount() {
